@@ -1,69 +1,81 @@
 from netmiko import ConnectHandler
-
+import getpass
+username = input("Username: ")
+password = getpass.getpass("Password: ")    
 
 devices=[
     {"device_type":"huawei",
-    "host":"192.168.42.",
-    "port":"",
-    "username":"",
-    "password":""},
+    "host":f"192.168.42.{i}",
+    "port":"11233",
+    "username":username,
+    "password":password
+    }
 
-    {"device_type":"huawei",
-    "host":"192.168.42.167",
-    "port":"",
-    "username":"",
-    "password":""},
-
-    {"device_type": "huawei",
-     "host": "192.168.42.",
-     "port": "",
-     "username": "",
-     "password": ""},
-
-    {"device_type": "huawei",
-     "host": "192.168.42.169",
-     "port": "11233",
-     "username": "",
-     "password": ""}
+for i in range(170,174)
 ]
 
 
 
 ip_config={
-    "192.168.42.159":{"int ether 1/0/0":{"ip":"68.1.1.1", "mask":"30"},"int ether 1/0/1":{"ip":"38.1.1.1","mask":"30"},
+    "192.168.42.170":{"int ether 1/0/0":{"ip":"68.1.1.1", "mask":"30"},"int ether 1/0/1":{"ip":"38.1.1.1","mask":"30"}, "int loopback0":{"ip":"1.1.1.1","mask":"32"}
                       },
-"192.168.42.167":{"int ether 1/0/0":{"ip":"68.1.1.2", "mask":"30"},"int ether 1/0/1":{"ip":"78.1.1.1","mask":"30"},
+
+
+"192.168.42.171":{"int ether 1/0/0":{"ip":"48.1.1.1", "mask":"30"},"int ether 1/0/1":{"ip":"38.1.1.2","mask":"30"},
+                 "int loopback0": {"ip":"3.3.3.3","mask":"32"}
                   },
-"192.168.42.168":{"int ether 1/0/0":{"ip":"38.1.1.2", "mask":"30"},"int ether 1/0/1":{"ip":"48.1.1.1","mask":"30"},
+
+"192.168.42.172":{"int ether 1/0/0":{"ip":"78.1.1.1", "mask":"30"},"int ether 1/0/1":{"ip":"48.1.1.2","mask":"30"},
+                 "int loopback0":{"ip":"4.4.4.4","mask":"32"}
                   },
-"192.168.42.169":{"int ether 1/0/0":{"ip":"78.1.1.2", "mask":"30"},"int ether 1/0/1":{"ip":"48.1.1.2","mask":"30"},
+
+"192.168.42.173":{"int ether 1/0/0":{"ip":"68.1.1.2", "mask":"30"},"int ether 1/0/1":{"ip":"78.1.1.2","mask":"30"},
+                "int loopback0":  {"ip": "2.2.2.2", "mask": "32"}
                   },
 }
 
-mpls_config={"192.168.42.159":{"lsr-id":"1.1.1.1"},
-"192.168.42.167":{"lsr-id":"2.2.2.2"},
-"192.168.42.168":{"lsr-id":"3.3.3.3"},
-"192.168.42.169":{"lsr-id":"4.4.4.4"}
+
+
+mpls_config={"192.168.42.170":{"lsr-id":"1.1.1.1"},
+"192.168.42.171":{"lsr-id":"3.3.3.3"},
+"192.168.42.172":{"lsr-id":"4.4.4.4"},
+"192.168.42.173":{"lsr-id":"2.2.2.2"}
              }
 
 isis_config={
-    "192.168.42.159":{"process":"isis 1", "id":"network-entity 59.0000.0192.0168.0420.0159.00"},
-"192.168.42.167":{"process":"isis 1", "id":"network-entity 67.0000.0192.0168.0420.0167.00"},
-"192.168.42.168":{"process":"isis 1", "id":"network-entity 68.0000.0192.0168.0420.0168.00"},
-"192.168.42.169":{"process":"isis 1", "id":"network-entity 69.0000.0192.0168.0420.0169.00"},
+    "192.168.42.170":{"process":"isis 1", "id":"network-entity 59.0000.0192.0168.0420.0159.00"},
+"192.168.42.171":{"process":"isis 1", "id":"network-entity 67.0000.0192.0168.0420.0167.00"},
+"192.168.42.172":{"process":"isis 1", "id":"network-entity 68.0000.0192.0168.0420.0168.00"},
+"192.168.42.173":{"process":"isis 1", "id":"network-entity 69.0000.0192.0168.0420.0169.00"},
 }
 
-ospf_config={"192.168.42.159":{"process":"37727","area":"area 0","net":"68.1.1.0","wildcard":"0.0.0.3","network":"38.1.1.0","mask":"0.0.0.3"},
-             "192.168.42.167":{"process":"37727","area":"area 0","net":"68.1.1.0","wildcard":"0.0.0.3", "network":"78.1.1.0","mask":"0.0.0.3"},
-             "192.168.42.168":{"process":"37727","area":"area 0","net":"38.1.1.0","wildcard":"0.0.0.3", "network":"48.1.1.0","mask":"0.0.0.3"},
-             "192.168.42.169":{"process":"37727","area":"area 0","net":"78.1.1.0","wildcard":"0.0.0.3", "network":"48.1.1.0","mask":"0.0.0.3"},
+ospf_config={"192.168.42.170":{"process":"37727","area":"area 0","net":"68.1.1.0","wildcard":"0.0.0.3","network":"38.1.1.0","mask":"0.0.0.3"},
+             "192.168.42.171":{"process":"37727","area":"area 0","net":"48.1.1.0","wildcard":"0.0.0.3", "network":"38.1.1.0","mask":"0.0.0.3"},
+             "192.168.42.172":{"process":"37727","area":"area 0","net":"78.1.1.0","wildcard":"0.0.0.3", "network":"48.1.1.0","mask":"0.0.0.3"},
+             "192.168.42.173":{"process":"37727","area":"area 0","net":"68.1.1.0","wildcard":"0.0.0.3", "network":"78.1.1.0","mask":"0.0.0.3"},
+             }
+
+## vsi-config
+vsi_config= {
+   "192.168.42.170": {"peer":"2.2.2.2"},
+             "192.168.42.173":{"peer":"1.1.1.1"}
+             }
+
+##mpls ldp l2vpn configuration
+mpls_ldp_remote_peer={"192.168.42.170": {"name":"R2", "remote_ip":"2.2.2.2"},
+             "192.168.42.173":{"name":"R1", "remote_ip":"1.1.1.1"}
+             }
+
+##l2vpn binding to interfaces
+l2vpn_binding={"192.168.42.170": {"interface":"int ether 1/0/3"},
+             "192.168.42.173": {"interface":"int ether 1/0/3"}
              }
 
 
 
 def configure_ip_addresses(connection,ip):
     for interface, ip_config in ip.items():
-        commands=[f"{interface}", f"ip add {ip_config['ip']} {ip_config['mask']}","mpls",'mpls ldp',"isis enable 1","ospf enable 1 area 0","commit"]
+        commands=[f"{interface}", f"ip add {ip_config['ip']} {ip_config['mask']}"," ospf enable 37727 area 0","commit","undo isis enable 1","commit"]
         output=connection.send_config_set(commands)
         print(output)
 
@@ -74,7 +86,7 @@ def configure_mpls(connection,mpls):
 
 
 def configure_isis(connection,isis):
-    commands=[f"{isis['process']}",f"{isis['id']}","commit","quit"]
+    commands=[f"undo {isis['process']}","y"]
     output = connection.send_config_set(commands)
     print(output)
 
@@ -83,47 +95,85 @@ def configure_ospf(connection,ospf):
     output=connection.send_config_set(commands)
     print(output)
 
+def configure_vsi(connection, vsi):
+   commands= ["mpls l2vpn","commit","quit","vsi test", "encapsulation ethernet","mtu 1500","pwsignal ldp",
+              "vsi-id 1234",
+              f"peer {vsi['peer']}","commit" ]
+   output = connection.send_config_set(commands)
+   print(output)
 
 
-def configure_rt(connection):
+def configure_mpls_ldp_remote_peer(connection, mpls_ldp):
+    commands = [f"mpls ldp remote-peer {mpls_ldp['name']}", 
+                f"remote-ip {mpls_ldp['remote_ip']}",
+                "commit"
+                  ]
+    output = connection.send_config_set(commands)
+    print(output)
 
-    output = connection.send_command("disp ospf peer br")
+def configure_l2vpn_binding(connection, l2vpn):
+    commands = [f"{l2vpn['interface']}", "l2 binding vsi test",
+            
+                "commit"      ]
+    output = connection.send_config_set(commands)
     print(output)
 
 
-def configure_router(device,ip_config,mpls_config,isis_config,configure_rt,ospf_config):
+
+def configure_rt(connection):
+    commands=[ "disp ospf peer br","disp vsi"]
+    output=connection.send_config_set(commands)
+    print(output)
+
+
+
+def configure_router(device):
     connection=ConnectHandler(**device)
     
     print(f"connected to {device['host']}")
     if device['host']in mpls_config:
      mpls=mpls_config[device['host']]
-     #configure_mpls(connection,mpls)
+
 
 
 
     if device['host']in isis_config:
      isis=isis_config[device['host']]
-     #configure_isis(connection,isis)
+
 
     if device['host']in ospf_config:
      ospf=ospf_config[device['host']]
-     configure_ospf(connection, ospf)
+
 
     if device['host'] in ip_config:
      ip = ip_config[device['host']]
-     #configure_ip_addresses(connection,ip)
+     
+    if device['host'] in vsi_config:
+        vsi = vsi_config[device['host']]
+        
+    
+    if device['host'] in mpls_ldp_remote_peer:
+        mpls_ldp = mpls_ldp_remote_peer[device['host']]
 
-     #configure_mpls(connection,mpls)
+    if device['host'] in l2vpn_binding:
+        l2vpn = l2vpn_binding[device['host']]
+        
+
+
+    #configure_mpls(connection,mpls)
     #configure_isis(connection,isis)
     #configure_ip_addresses(connection,ip)
     #configure_ospf(connection,ospf)
+    configure_vsi(connection, vsi)
+    #configure_mpls_ldp_remote_peer(connection, mpls_ldp)
+    #configure_l2vpn_binding(connection, l2vpn)
     configure_rt(connection)
-    #connection.save_config()
+    connection.save_config()
 
 
 
 for device in devices:
     try:
-        configure_router(device,ip_config,mpls_config,isis_config,configure_rt, ospf_config)
+        configure_router(device)
     except Exception as e:
         print("failed to connect to: ", e)
