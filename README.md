@@ -1,23 +1,27 @@
 # Huawei Configuration Automation
 
-Automates router configuration tasks on Huawei devices using Python and Netmiko. This script is designed for modular execution and integrates key features like IP address setup, route-policy application, and protocol configuration.
+A Python automation script for configuring Huawei routers with MPLS, OSPF, L2VPN, and VSI settings using Netmiko.
+Overview
+This script automates the configuration of a network topology consisting of 4 Huawei routers (192.168.42.170-173). 
 
-## 🧰 Features
+Features
 
-- Dynamic device handling using Netmiko
-- Modular logic for configuring:
-  - IP addresses
-  - MPLS
-  - IS-IS
-  - BGP
- 
-- Scalable for multi-device environments
+✅ Automated IP address configuration
+✅ MPLS and LDP setup
+✅ OSPF routing protocol configuration
+✅ L2VPN with VSI configuration
+✅ LDP remote peer establishment
+✅ Configuration verification commands
+✅ Automatic configuration saving
 
-## 🚀 Getting Started
+ Contributing
 
-### Prerequisites
+Fork the repository
+Create a feature branch (git checkout -b feature/new-feature)
+Commit your changes (git commit -am 'Add new feature')
+Push to the branch (git push origin feature/new-feature)
+Create a Pull Request
 
-- Python 3.x
-- Netmiko:  
-  ```bash
-  pip install netmiko
+Disclaimer
+This script is provided as-is for educational and testing purposes. Always test thoroughly in a lab environment before deploying to production networks. The authors are not responsible for any network disruptions or configuration issues that may arise from using this script.
+
