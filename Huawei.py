@@ -167,7 +167,7 @@ def configure_router(device):
     #configure_vsi(connection, vsi)
     #configure_mpls_ldp_remote_peer(connection, mpls_ldp)
     #configure_l2vpn_binding(connection, l2vpn)
-    #configure_rt(connection)
+    configure_rt(connection)
     #connection.save_config()
 
 
