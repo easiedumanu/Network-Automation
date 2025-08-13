@@ -6,7 +6,7 @@ password = getpass.getpass("Password: ")
 devices=[
     {"device_type":"huawei",
     "host":f"192.168.42.{i}",
-    "port":"11233",
+    "port":"",
     "username":username,
     "password":password
     }
@@ -164,11 +164,11 @@ def configure_router(device):
     #configure_isis(connection,isis)
     #configure_ip_addresses(connection,ip)
     #configure_ospf(connection,ospf)
-    configure_vsi(connection, vsi)
+    #configure_vsi(connection, vsi)
     #configure_mpls_ldp_remote_peer(connection, mpls_ldp)
     #configure_l2vpn_binding(connection, l2vpn)
-    configure_rt(connection)
-    connection.save_config()
+    #configure_rt(connection)
+    #connection.save_config()
 
 
 
