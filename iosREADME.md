@@ -11,6 +11,7 @@ This repository provides a modular Python-based automation tool for configuring 
   - OSPF
   - ISIS
   - Layer 2 VPN (VPWS & VPLS)
+  - Prefix-set and route policy to filter routes
 - JSON-driven configuration inputs
 - Exception handling for robust deployment
 
@@ -27,6 +28,7 @@ This repository provides a modular Python-based automation tool for configuring 
 | `vpws_config.json`    | VPWS peer and interface definitions          |
 | `vpls_config.json`    | VPLS bridge-domain and VFI configurations    |
 
+#NB: json files were not included. you can create your own json files and use the logic to push the configs to devices
 ## 🧠 Design Rationale
 
 ### 📦 Why Use JSON Uploads?
@@ -46,6 +48,8 @@ This framework uses external `.json` files to define device configurations for s
 - **Parallel Development**: Teams can work on different modules independently.
 - **Future-Proofing**: New services can be added without disrupting existing logic.
 
+This project is open to improvement. If you have ideas for new features, better modularity, or support for additional platforms, feel free to fork the repo, submit pull requests, or open issues. Collaboration is welcome—whether you're refining the logic, optimizing performance, or expanding protocol support.
+#Configs are not complete as we are gradually building on it step by step
 ## 🛠 Requirements
 
 - Python 3.8+
@@ -57,4 +61,3 @@ Install dependencies:
 pip install netmiko paramiko
 
 
-This project is open to improvement. If you have ideas for new features, better modularity, or support for additional platforms, feel free to fork the repo, submit pull requests, or open issues. Collaboration is welcome—whether you're refining the logic, optimizing performance, or expanding protocol support.
