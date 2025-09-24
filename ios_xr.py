@@ -10,7 +10,7 @@ with open("cred.json")as file:
 
 
 devices=[]
-target_ips=["192.168.42.11","192.168.42.12"]
+target_ips=["192.168.42.11"]
 
 for ip in target_ips:
     device = {"device_type": "cisco_ios",
@@ -41,6 +41,12 @@ with open("vpls_config.json")as f:
 
 with open("isis_config.json")as f:
     isis_config=json.load(f)
+
+with open("ip_prefix.json")as f:
+    ip_prefix=json.load(f)
+
+with open("route_policy.json")as f:
+    route_policy=json.load(f)
 
 def configure_ip_address(connection,ip):
     for interface,ip_config in ip.items():
@@ -86,25 +92,64 @@ def configure_l2vpn_vpls(connection,vpls):
     output=connection.send_config_set(commands)
     print(output)
 
+def configure_prefix_set(connection,prefix):
+    commands=["prefix-set allowed",f"{prefix['list']},{prefix['list2']}",
+              "end-set","commit"]
+    output = connection.send_config_set(commands)
+    print(output)
+
+def configure_route_policy(connection,rp):
+    commands=[f"route-policy {rp['rp1']}",
+              f"if destination in {rp['rp1']} then pass else drop endif","end-policy","commit"]
+    output = connection.send_config_set(commands)
+    print(output)
+
 
 
 def configure_router(device):
     connection=ConnectHandler(**device)
     connection.enable()
     print(f"connecting to {device['host']}")
-    ip=ip_config[device['host']]
-    #mpls=mpls_config[device['host']]
-    #ospf=ospf_config[device['host']]
-    #isis=isis_config[device['host']]
-    #l2vpn=vpws_config[device['host']]
-    #vpls=vpls_config[device['host']]
 
-    configure_ip_address(connection,ip)
+    if device['host']in ip_config:
+        ip = ip_config[device['host']]
+
+
+    if device['host']in mpls_config:
+        mpls = mpls_config[device['host']]
+
+    if device['host']in ospf_config:
+        ospf = ospf_config[device['host']]
+
+    if device['host']in isis_config:
+        isis = isis_config[device['host']]
+
+    if device['host']in vpws_config:
+        l2vpn=vpws_config[device['host']]
+
+    if device['host']in vpls_config:
+        vpls=vpls_config[device['host']]
+
+    if device['host']in ip_prefix:
+        prefix=ip_prefix[device['host']]
+
+    if device['host']in route_policy:
+        rp=route_policy[device['host']]
+
+
+
+
+
+
+
+    #configure_ip_address(connection,ip)
     #configure_mpls(connection,mpls)
     #configure_ospf(connection,ospf)
     #configure_l2vpn_vpws(connection,l2vpn)
     #configure_l2vpn_vpls(connection,vpls)
     #configure_isis(connection,isis)
+    #configure_prefix_set(connection,prefix)
+    configure_route_policy(connection,rp)
 
 for device in devices:
     try:
